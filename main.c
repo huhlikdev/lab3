@@ -142,21 +142,17 @@ int main(){
             case 5: {
                 char str[256];
                 printf("Vvedite stroku: ");
-                scanf(" %255[^\n]", str); // Читаем строку с пробелами
+                scanf(" %255[^\n]", str);
                 
                 int key = 0;
                 int is_encrypt = 0; // Флаг: 1 - шифруем, 0 - расшифровываем
                 
-                // Проверяем первый символ
                 if (str[0] >= '0' && str[0] <= '9') {
-                    // Начинается с цифры -> РАСШИФРОВКА
                     is_encrypt = 0;
-                    key = str[0] - '0'; // Превращаем символ в число
+                    key = str[0] - '0';
                     printf("Rezhim: Rashifrovka. Klyuch: %d\n", key);
                 } else {
-                    // Начинается с буквы (или другого символа) -> ШИФРОВАНИЕ
                     is_encrypt = 1;
-                    // Генерируем случайный ключ от 1 до 9
                     key = 1 + rand() % 9;
                     printf("Rezhim: Shifrovanie. Klyuch: %d\n", key);
                 }
@@ -167,9 +163,8 @@ int main(){
                     
                     if (c >= 'A' && c <= 'Z') {
                         if (is_encrypt) {
-                            c = ((c - 'A' + key) % 26) + 'A'; // Шифруем (вперед)
+                            c = ((c - 'A' + key) % 26) + 'A';
                         } else {
-                            // Расшифровываем (назад). +26 нужно, чтобы не уйти в минус
                             c = ((c - 'A' - key + 26) % 26) + 'A'; 
                         }
                     } else if (c >= 'a' && c <= 'z') {
@@ -187,27 +182,24 @@ int main(){
             case 6:{
                 char str[256];
                 printf("Vvedite stroku: ");
-                scanf(" %255[^\n]", str); // Читаем строку с пробелами
+                scanf(" %255[^\n]", str);
                 
-                // Разбиваем на слова вручную (без доп. массивов, как просят)
                 int len = 0;
                 while (str[len] != '\0') len++;
                 
-                // Проходим по длинам от 1 до максимума
                 for (int current_len = 1; current_len <= len; current_len++) {
                     int start = 0;
-                    // Ищем слова нужной длины
+                    
                     for (int i = 0; i <= len; i++) {
                         if (str[i] == ' ' || str[i] == '\0') {
                             int word_len = i - start;
                             if (word_len == current_len) {
-                                // Выводим слово
                                 for (int j = start; j < i; j++) {
                                     printf("%c", str[j]);
                                 }
                                 printf("\n");
                             }
-                            start = i + 1; // Начало следующего слова
+                            start = i + 1;
                         }
                     }
                 }
